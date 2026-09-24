@@ -1,15 +1,21 @@
-package com.example.planner.data.local
+﻿package com.example.planner.data.local
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DayEventDao {
-    @Query("SELECT * FROM events WHERE weekOffset = :weekOffset AND dayOfWeek = :day ORDER BY startHour, startMinute")
+    @Query("SELECT * FROM events WHERE weekOffset = :weekOffset AND dayOfWeek = :dayOfWeek ORDER BY startHour, startMinute")
     fun getEventsForDay(weekOffset: Int, dayOfWeek: Int): Flow<List<DayEvent>>
 
     @Query("SELECT * FROM events WHERE weekOffset = :weekOffset ORDER BY dayOfWeek, startHour, startMinute")
     fun getAllForWeek(weekOffset: Int): Flow<List<DayEvent>>
+
+    @Query("SELECT * FROM events WHERE weekOffset = :weekOffset AND dayOfWeek = :dayOfWeek ORDER BY startHour, startMinute")
+    suspend fun getEventsForDaySnapshot(weekOffset: Int, dayOfWeek: Int): List<DayEvent>
+
+    @Query("SELECT * FROM events WHERE weekOffset = :weekOffset ORDER BY dayOfWeek, startHour, startMinute")
+    suspend fun getAllForWeekSnapshot(weekOffset: Int): List<DayEvent>
 
     @Query("SELECT * FROM events WHERE id = :id")
     suspend fun getById(id: Long): DayEvent?
@@ -29,9 +35,6 @@ interface DayEventDao {
     @Query("DELETE FROM events")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM events WHERE weekOffset = :weekOffset AND dayOfWeek = :day AND isRepeating = 1")
-    suspend fun getRepeatingForDay(weekOffset: Int, dayOfWeek: Int): List<DayEvent>
-
-    @Query("SELECT * FROM events WHERE dayOfWeek = :day AND isRepeating = 1 AND weekOffset = 0")
+    @Query("SELECT * FROM events WHERE dayOfWeek = :dayOfWeek AND isRepeating = 1 AND weekOffset = 0")
     suspend fun getBaseRepeating(dayOfWeek: Int): List<DayEvent>
 }
