@@ -72,9 +72,46 @@ fun EventFormScreen(weekOffset: Int, dayOfWeek: Int, eventId: Long?, onBack: () 
 @Composable
 private fun TimeField(label: String, hour: Int, minute: Int, onPick: (Int, Int) -> Unit, modifier: Modifier) {
     var show by remember { mutableStateOf(false) }
-    OutlinedTextField(value = "${hour.toString().padStart(2,'0')}:${minute.toString().padStart(2,'0')}", onValueChange = {}, readOnly = true, label = { Text(label) }, modifier = modifier.clickable { show = true }, trailingIcon = { Icon(Icons.Default.Schedule, null) })
+    
+    OutlinedTextField(
+        value = "${hour.toString().padStart(2,'0')}:${minute.toString().padStart(2,'0')}",
+        onValueChange = {},
+        readOnly = true,
+        label = { Text(label) },
+        modifier = modifier.clickable { show = true },
+        trailingIcon = { 
+            IconButton(onClick = { show = true }) {
+                Icon(Icons.Default.Schedule, null)
+            }
+        }
+    )
+    
     if (show) {
-        val state = rememberTimePickerState()
-        AlertDialog(onDismissRequest = { show = false }, confirmButton = { TextButton(onClick = { onPick(state.hour, state.minute); show = false }) { Text("OK") } }, dismissButton = { TextButton(onClick = { show = false }) { Text("Отмена") } }, title = { Text("Выберите время") }, text = { TimePicker(state = state) })
+        val timePickerState = rememberTimePickerState(
+            initialHour = hour,
+            initialMinute = minute,
+            is24Hour = true
+        )
+        
+        AlertDialog(
+            onDismissRequest = { show = false },
+            confirmButton = {
+                TextButton(onClick = { 
+                    onPick(timePickerState.hour, timePickerState.minute)
+                    show = false 
+                }) { 
+                    Text("OK") 
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { show = false }) { 
+                    Text("Отмена") 
+                }
+            },
+            title = { Text("Выберите время") },
+            text = { 
+                TimePicker(state = timePickerState) 
+            }
+        )
     }
 }
