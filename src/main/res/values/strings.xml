@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Планировщик</string>
+    <string name="week_title">Неделя</string>
+    <string name="this_week">Текущая неделя</string>
+    <string name="next_week">Следующая неделя</string>
+
+    <string name="new_event">Новое событие</string>
+    <string name="edit_event">Редактирование</string>
+    <string name="title">Название</string>
+    <string name="description">Описание</string>
+    <string name="start">Начало</string>
+    <string name="end">Окончание</string>
+    <string name="repeat_weekly">Повторять каждую неделю</string>
+    <string name="color">Цвет</string>
+    <string name="icon">Иконка</string>
+    <string name="save">Сохранить</string>
+    <string name="pick_time">Выберите время</string>
+
+    <string name="settings">Настройки</string>
+    <string name="sound_enabled">Звуковые уведомления</string>
+    <string name="notifications_enabled">Уведомления</string>
+    <string name="reminder_before">Напоминать до события</string>
+    <string name="minutes">мин</string>
+    <string name="clear_all">Очистить все данные</string>
+    <string name="clear_confirm_title">Удалить все?</string>
+    <string name="clear_confirm_text">Все события будут удалены без возможности восстановления.</string>
+    <string name="version">Версия %1$s</string>
+
+    <string name="notif_start">Начинается</string>
+    <string name="notif_end">Завершено: %1$s</string>
+    <string name="notif_end_title">Событие завершено</string>
+    <string name="notif_next">Следующее: %1$s</string>
+</resources>
